@@ -1,0 +1,8 @@
+package com.myweb.board.model;
+
+public interface IBoardDAO {
+
+	// 글 등록 메서드
+	void regist(String writer, String title, String content);
+	
+}
