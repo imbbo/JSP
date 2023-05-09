@@ -1,0 +1,21 @@
+package com.myweb.board.service;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class UpdateService implements IBoardService {
+
+	@Override
+	public void execute(HttpServletRequest request, HttpServletResponse response) {
+		
+		int bId = Integer.parseInt(request.getParameter("bId"));
+		String writer = request.getParameter("bWriter");
+		String content = request.getParameter("bContent");
+		String title = request.getParameter("bTitle");
+		
+		
+		
+		
+	}
+
+}

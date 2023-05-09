@@ -1,0 +1,23 @@
+package com.myweb.board.service;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.myweb.board.model.BoardDAO;
+import com.myweb.board.model.BoardVO;
+
+public class SerchService implements IBoardService {
+
+	@Override
+	public void execute(HttpServletRequest request, HttpServletResponse response) {
+
+		String category = request.getParameter("category");
+		String keyword = request.getParameter("keyword");
+		List<BoardVO> list = BoardDAO.getInstance().searchBoard(keyword, category);
+		
+		
+	}
+
+}
