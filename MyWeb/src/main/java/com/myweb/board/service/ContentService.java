@@ -26,34 +26,53 @@ public class ContentService implements IBoardService {
          현재 글 번호와 일치하는 쿠키가 없다면 조회수를 올려주도록 하겠습니다.  
 		 */
 
-		Cookie c = new Cookie(request.getParameter("bId"),request.getParameter("bId"));
-		c.setMaxAge(15);
-		Cookie[] cookies = request.getCookies();
+//		Cookie c = new Cookie(request.getParameter("bId"),request.getParameter("bId"));
+//        c.setMaxAge(15);
+//        Cookie[] cookies = request.getCookies();
+//
+//        boolean flag = false;
+//
+//        if(cookies != null) {
+//            for(Cookie i : cookies) {
+//
+//                if(i.getName().equals(request.getParameter("bId"))) {
+//                    flag =true;
+//                    break;
+//                } else {
+//                    response.addCookie(c);
+//                }
+//            }
+//        } else {
+//            response.addCookie(c);
+//        }
+//        if(flag!=true) dao.upHit(bId);
 
-		boolean flag = false;
-
-		if(cookies != null) {
-			for(Cookie i : cookies) {
-
-				if(i.getName().equals(request.getParameter("bId"))) {
-					flag =true;
-					break;
-				} else {
-					response.addCookie(c);
+			String bNum = request.getParameter("bId");
+			
+			boolean flag = false;
+			Cookie[] cookies = request.getCookies();
+			if(cookies != null) {
+				for(Cookie c : cookies) {
+					if(c.getName().equals(bNum)) {
+						flag = true;
+						break;
+					}
 				}
+				if(!flag) {
+					Cookie hitCoo = new Cookie(bNum, bNum);
+					hitCoo.setMaxAge(15);
+					response.addCookie(hitCoo);
+					dao.upHit(bId);
+				}
+
 			}
-		} else {
-			response.addCookie(c);
-		}
-		if(flag!=true) dao.upHit(bId);
-		BoardVO vo = dao.contentBoard(bId);		
-		vo.setContent(vo.getContent().replace("\r\n", "<br>"));
+			BoardVO vo = dao.contentBoard(bId);
+			vo.setContent(vo.getContent().replace("\r\n", "<br>"));
+			
+			request.setAttribute("content", vo);
 
-		request.setAttribute("content",	vo);
-
-
-
-
+			
+			
 	}
 
 }
